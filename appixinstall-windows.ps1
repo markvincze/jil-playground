@@ -25,23 +25,23 @@ public static extern IntPtr SendMessageTimeout(
  
     # notify all windows of environment block change
     [win32.nativemethods]::SendMessageTimeout($HWND_BROADCAST, $WM_SETTINGCHANGE,
-            [uintptr]::Zero, "Environment", 2, 5000, [ref]$result);
+            [uintptr]::Zero, "Environment", 2, 5000, [ref]$result) >$null 2>&1;
 }
 
 Function AddTo-SystemPath {
 Param(
   [string]$Path
   )
-  $oldpath = (Get-ItemProperty -Path ‘Registry::HKEY_CURRENT_USER\Environment’ -Name PATH).path
+  $oldpath = (Get-ItemProperty -Path â€˜Registry::HKEY_CURRENT_USER\Environmentâ€™ -Name PATH).path
 
   if($oldpath.EndsWith(";")) {
-    $newpath = “$oldpath$Path”
+    $newpath = â€œ$oldpath$Pathâ€
   }
   else {
-    $newpath = “$oldpath;$Path”
+    $newpath = â€œ$oldpath;$Pathâ€
   }
   
-  Set-ItemProperty -Path ‘Registry::HKEY_CURRENT_USER\Environment’ -Name PATH –Value $newPath         
+  Set-ItemProperty -Path â€˜Registry::HKEY_CURRENT_USER\Environmentâ€™ -Name PATH â€“Value $newPath         
 
   # Updating the path for the current session
   $env:Path = $newpath
