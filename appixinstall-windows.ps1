@@ -32,16 +32,16 @@ Function AddTo-SystemPath {
 Param(
   [string]$Path
   )
-  $oldpath = (Get-ItemProperty -Path ‘Registry::HKEY_CURRENT_USER\Environment’ -Name PATH).path
+  $oldpath = (Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name PATH).path
 
   if($oldpath.EndsWith(";")) {
-    $newpath = “$oldpath$Path”
+    $newpath = "$oldpath$Path"
   }
   else {
-    $newpath = “$oldpath;$Path”
+    $newpath = "$oldpath;$Path"
   }
   
-  Set-ItemProperty -Path ‘Registry::HKEY_CURRENT_USER\Environment’ -Name PATH –Value $newPath         
+  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name PATH –Value $newPath         
 
   # Updating the path for the current session
   $env:Path = $newpath
