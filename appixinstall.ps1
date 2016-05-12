@@ -41,7 +41,7 @@ Param(
     $newpath = "$oldpath;$Path"
   }
   
-  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name PATH –Value $newPath         
+  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name PATH -Value $newPath
 
   # Updating the path for the current session
   $env:Path = $newpath
